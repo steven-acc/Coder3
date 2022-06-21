@@ -1,0 +1,17 @@
+services:
+  code-server3:
+    image: okteto.dev/coder-node:latest
+    command: ["dumb-init", "code-server", "--auth", "none", "--port", "8081", "--host", "0.0.0.0"]
+    scale: 1
+    ports:
+      - 8081
+    volumes:
+      - project:/root/project
+volumes:
+  project:
+    driver_opts:
+      size: 3Gi
+endpoints:
+  - path: /
+    service: code-server3
+    port: 8081
